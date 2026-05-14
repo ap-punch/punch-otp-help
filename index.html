@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OTP Troubleshooting — Punch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b1130;
+    --bg-2: #131a44;
+    --card: #19204b;
+    --card-hover: #1d2655;
+    --border: #2a3370;
+    --divider: #1f2756;
+    --text: #ffffff;
+    --text-muted: #8c97c8;
+    --text-soft: #b9c1e3;
+    --green: #36ed8d;
+    --green-hover: #2bd97e;
+    --green-glow: rgba(54, 237, 141, 0.25);
+    --blue: #3590f5;
+    --red: #ff5c7c;
+    --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  body {
+    background:
+      radial-gradient(ellipse at top left, rgba(53, 144, 245, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(54, 237, 141, 0.06) 0%, transparent 50%),
+      var(--bg);
+  }
+
+  .container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+  }
+
+  /* --- Top bar --- */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 56px;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text);
+  }
+
+  .brand img {
+    height: 28px;
+    width: auto;
+    display: block;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+  }
+  .back-link:hover {
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.04);
+  }
+  .back-link svg { width: 14px; height: 14px; }
+
+  /* --- Hero --- */
+  .hero {
+    margin-bottom: 48px;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: rgba(53, 144, 245, 0.1);
+    color: #7eb7ff;
+    border: 1px solid rgba(53, 144, 245, 0.25);
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 18px;
+  }
+
+  .eyebrow-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--blue);
+    box-shadow: 0 0 8px var(--blue);
+  }
+
+  h1 {
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  h1 .accent { color: var(--green); }
+
+  .lede {
+    color: var(--text-soft);
+    font-size: 17px;
+    max-width: 620px;
+  }
+
+  /* --- Steps --- */
+  .steps {
+    display: grid;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .step {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 28px 28px 24px;
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 24px;
+    align-items: start;
+    transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+  }
+
+  .step:hover {
+    background: var(--card-hover);
+    border-color: rgba(54, 237, 141, 0.35);
+    transform: translateY(-1px);
+  }
+
+  .step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--green);
+    letter-spacing: 1px;
+    padding-top: 4px;
+    border-right: 1px solid var(--divider);
+    padding-right: 16px;
+    text-align: right;
+  }
+
+  .step-num small {
+    display: block;
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  .step-body h2 {
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text);
+    letter-spacing: -0.2px;
+  }
+
+  .step-body p {
+    color: var(--text-soft);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  .step-body p strong { color: var(--text); font-weight: 600; }
+
+  /* --- Footer block --- */
+  .help-card {
+    margin-top: 8px;
+    padding: 28px;
+    background:
+      linear-gradient(135deg, rgba(54, 237, 141, 0.08) 0%, rgba(53, 144, 245, 0.04) 100%),
+      var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .help-card-text h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .help-card-text p {
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 24px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 999px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .btn-primary {
+    background: var(--green);
+    color: #062c19;
+    box-shadow: 0 8px 24px var(--green-glow);
+  }
+  .btn-primary:hover {
+    background: var(--green-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 28px var(--green-glow);
+  }
+
+  /* --- Footer note --- */
+  .foot-note {
+    margin-top: 40px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+
+  .foot-note a {
+    color: var(--text-soft);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--text-muted);
+  }
+  .foot-note a:hover { color: var(--text); }
+
+  @media (max-width: 600px) {
+    .container { padding: 20px 16px 48px; }
+    .topbar { margin-bottom: 32px; }
+    .step {
+      grid-template-columns: 1fr;
+      padding: 22px;
+      gap: 16px;
+    }
+    .step-num {
+      border-right: none;
+      border-bottom: 1px solid var(--divider);
+      padding: 0 0 12px 0;
+      text-align: left;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .step-num small { margin-bottom: 0; }
+    .help-card { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="topbar">
+    <a class="brand" href="https://www.punch.trade/" aria-label="Punch">
+      <img src="punch-logo.svg" alt="Punch" />
+    </a>
+    <a class="back-link" href="https://desktop.punch.trade" onclick="closeOrRedirect(event)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/>
+      </svg>
+      Back to login
+    </a>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">
+      <span class="eyebrow-dot"></span>
+      Login Help
+    </div>
+    <h1>Not receiving your <span class="accent">OTP</span>?</h1>
+    <p class="lede">Try these quick checks before reaching out for help. Most OTP delivery issues are resolved within a minute or two using the steps below.</p>
+  </section>
+
+  <section class="steps">
+
+    <article class="step">
+      <div class="step-num"><small>Step</small>01</div>
+      <div class="step-body">
+        <h2>Confirm your mobile network signal</h2>
+        <p>Check that your phone has cellular signal. If the signal bar is empty or showing only one bar, move to an open area or near a window and try again. <strong>Wi-Fi alone is not enough</strong> — SMS delivery requires an active cellular connection.</p>
+      </div>
+    </article>
+
+    <article class="step">
+      <div class="step-num"><small>Step</small>02</div>
+      <div class="step-body">
+        <h2>Verify your SIM is active and able to receive SMS</h2>
+        <p>Ask someone to send you a regular SMS on the same number. If you do not receive their message either, your SIM may be inactive, recently ported, or set to block incoming SMS. <strong>Contact your telecom operator</strong> to check the status of your SIM.</p>
+      </div>
+    </article>
+
+    <article class="step">
+      <div class="step-num"><small>Step</small>03</div>
+      <div class="step-body">
+        <h2>Check your SMS spam or blocked folder</h2>
+        <p>Some phones automatically route OTP and other transactional messages to a separate <strong>spam, promotional, or blocked folder</strong>. Open your Messages app, switch to that tab, and look for messages from Punch.</p>
+      </div>
+    </article>
+
+    <article class="step">
+      <div class="step-num"><small>Step</small>04</div>
+      <div class="step-body">
+        <h2>Toggle Airplane Mode</h2>
+        <p>Turn Airplane Mode on, wait <strong>10 seconds</strong>, then turn it off. This forces your phone to reconnect to the cellular network and often releases SMS that were stuck in transit. Once reconnected, request a new OTP.</p>
+      </div>
+    </article>
+
+  </section>
+
+  <div class="help-card">
+    <div class="help-card-text">
+      <h3>Still stuck?</h3>
+      <p>Tried all the above and still not receiving the OTP? We're here to help.</p>
+    </div>
+    <a class="btn btn-primary" href="https://punn.ch/punch_charting_support" target="_blank" rel="noopener">
+      Contact Support
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 12h14"/><path d="M12 5l7 7-7 7"/>
+      </svg>
+    </a>
+  </div>
+
+  <p class="foot-note">
+    Trouble with something else? Visit the <a href="https://www.punch.trade/help" target="_blank" rel="noopener">Punch Help Center</a>.
+  </p>
+
+</div>
+<script>
+  function closeOrRedirect(e) {
+    e.preventDefault();
+    // Attempt to close the tab (works when this tab was opened by another tab/script)
+    window.close();
+    // If still open after a moment, fall back to navigating to the desktop site
+    setTimeout(function () {
+      if (!window.closed) {
+        window.location.href = 'https://desktop.punch.trade';
+      }
+    }, 120);
+  }
+</script>
+</body>
+</html>
