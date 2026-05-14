@@ -46,9 +46,9 @@
   }
 
   .container {
-    max-width: 880px;
+    max-width: 1080px;
     margin: 0 auto;
-    padding: 32px 24px 64px;
+    padding: 20px 24px 24px;
   }
 
   /* --- Top bar --- */
@@ -56,7 +56,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 56px;
+    margin-bottom: 20px;
   }
 
   .brand {
@@ -92,23 +92,23 @@
 
   /* --- Hero --- */
   .hero {
-    margin-bottom: 48px;
+    margin-bottom: 20px;
   }
 
   .eyebrow {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 6px 12px;
+    padding: 4px 10px;
     background: rgba(53, 144, 245, 0.1);
     color: #7eb7ff;
     border: 1px solid rgba(53, 144, 245, 0.25);
     border-radius: 999px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-bottom: 18px;
+    margin-bottom: 10px;
   }
 
   .eyebrow-dot {
@@ -120,36 +120,37 @@
   }
 
   h1 {
-    font-size: clamp(32px, 5vw, 48px);
+    font-size: clamp(24px, 3vw, 32px);
     font-weight: 800;
     line-height: 1.1;
-    letter-spacing: -1.5px;
-    margin-bottom: 16px;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
     text-transform: uppercase;
   }
   h1 .accent { color: var(--green); }
 
   .lede {
     color: var(--text-soft);
-    font-size: 17px;
+    font-size: 14px;
     max-width: 620px;
   }
 
-  /* --- Steps --- */
+  /* --- Steps (2x2 grid on desktop) --- */
   .steps {
     display: grid;
-    gap: 16px;
-    margin-bottom: 48px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
   }
 
   .step {
     background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 28px 28px 28px 24px;
+    border-radius: 12px;
+    padding: 16px 18px;
     display: grid;
-    grid-template-columns: 64px 1fr;
-    gap: 24px;
+    grid-template-columns: 48px 1fr;
+    gap: 14px;
     align-items: start;
     transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
   }
@@ -162,77 +163,77 @@
 
   .step-num {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
     color: var(--green);
     letter-spacing: 1px;
-    padding-top: 4px;
+    padding-top: 2px;
     border-right: 1px solid var(--divider);
-    padding-right: 16px;
+    padding-right: 12px;
     text-align: right;
   }
 
   .step-num small {
     display: block;
     color: var(--text-muted);
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 500;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
     text-transform: uppercase;
     letter-spacing: 1.5px;
   }
 
   .step-body h2 {
-    font-size: 19px;
+    font-size: 15px;
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     color: var(--text);
     letter-spacing: -0.2px;
   }
 
   .step-body p {
     color: var(--text-soft);
-    font-size: 15px;
-    line-height: 1.6;
+    font-size: 13px;
+    line-height: 1.5;
   }
 
   .step-body p strong { color: var(--text); font-weight: 600; }
 
   /* --- Footer block --- */
   .help-card {
-    margin-top: 8px;
-    padding: 28px;
+    margin-top: 0;
+    padding: 14px 20px;
     background:
       linear-gradient(135deg, rgba(54, 237, 141, 0.08) 0%, rgba(53, 144, 245, 0.04) 100%),
       var(--card);
     border: 1px solid var(--border);
-    border-radius: 16px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 24px;
+    gap: 20px;
     flex-wrap: wrap;
   }
 
   .help-card-text h3 {
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 700;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
   }
   .help-card-text p {
     color: var(--text-muted);
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .btn {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 14px 24px;
+    padding: 10px 20px;
     font-family: 'Inter', sans-serif;
     font-weight: 700;
-    font-size: 13px;
-    letter-spacing: 1.5px;
+    font-size: 12px;
+    letter-spacing: 1.2px;
     text-transform: uppercase;
     text-decoration: none;
     border-radius: 999px;
@@ -255,10 +256,10 @@
 
   /* --- Footer note --- */
   .foot-note {
-    margin-top: 40px;
+    margin-top: 14px;
     text-align: center;
     color: var(--text-muted);
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .foot-note a {
@@ -268,18 +269,22 @@
   }
   .foot-note a:hover { color: var(--text); }
 
+  @media (max-width: 860px) {
+    .steps { grid-template-columns: 1fr; }
+  }
+
   @media (max-width: 600px) {
-    .container { padding: 20px 16px 48px; }
-    .topbar { margin-bottom: 32px; }
+    .container { padding: 16px 16px 24px; }
+    .topbar { margin-bottom: 16px; }
     .step {
       grid-template-columns: 1fr;
-      padding: 22px;
-      gap: 16px;
+      padding: 16px;
+      gap: 10px;
     }
     .step-num {
       border-right: none;
       border-bottom: 1px solid var(--divider);
-      padding: 0 0 12px 0;
+      padding: 0 0 8px 0;
       text-align: left;
       display: flex;
       align-items: baseline;
@@ -311,7 +316,7 @@
       Login Help
     </div>
     <h1>Not receiving your <span class="accent">OTP</span>?</h1>
-    <p class="lede">Try these quick checks before reaching out for help. Most OTP delivery issues are resolved within a minute or two using the steps below.</p>
+    <p class="lede">Try these quick checks before reaching out for help — most OTP delivery issues are resolved in a minute.</p>
   </section>
 
   <section class="steps">
